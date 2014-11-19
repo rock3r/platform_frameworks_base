@@ -135,14 +135,6 @@ public class NavigationBarView extends LinearLayout {
         }
     }
 
-    private final OnClickListener mImeSwitcherClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            ((InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE))
-                    .showInputMethodPicker();
-        }
-    };
-
     private class H extends Handler {
         public void handleMessage(Message m) {
             switch (m.what) {
@@ -262,10 +254,6 @@ public class NavigationBarView extends LinearLayout {
         return mCurrentView.findViewById(R.id.home);
     }
 
-    public View getImeSwitchButton() {
-        return mCurrentView.findViewById(R.id.ime_switcher);
-    }
-
     private void getIcons(Resources res) {
         mBackIcon = res.getDrawable(R.drawable.ic_sysbar_back);
         mBackLandIcon = res.getDrawable(R.drawable.ic_sysbar_back_land);
@@ -310,12 +298,6 @@ public class NavigationBarView extends LinearLayout {
                 : (mVertical ? mBackLandIcon : mBackIcon));
 
         ((ImageView)getRecentsButton()).setImageDrawable(mVertical ? mRecentLandIcon : mRecentIcon);
-
-        final boolean showImeButton = ((hints & StatusBarManager.NAVIGATION_HINT_IME_SHOWN) != 0);
-        getImeSwitchButton().setVisibility(showImeButton ? View.VISIBLE : View.INVISIBLE);
-        // Update menu button in case the IME state has changed.
-        setMenuVisibility(mShowMenu, true);
-
 
         setDisabledFlags(mDisabledFlags, true);
     }
@@ -395,9 +377,7 @@ public class NavigationBarView extends LinearLayout {
         mShowMenu = show;
 
         // Only show Menu if IME switcher not shown.
-        final boolean shouldShow = mShowMenu &&
-                ((mNavigationIconHints & StatusBarManager.NAVIGATION_HINT_IME_SHOWN) == 0);
-        getMenuButton().setVisibility(shouldShow ? View.VISIBLE : View.INVISIBLE);
+        getMenuButton().setVisibility(mShowMenu ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
@@ -410,8 +390,6 @@ public class NavigationBarView extends LinearLayout {
         mRotatedViews[Surface.ROTATION_270] = mRotatedViews[Surface.ROTATION_90];
 
         mCurrentView = mRotatedViews[Surface.ROTATION_0];
-
-        getImeSwitchButton().setOnClickListener(mImeSwitcherClickListener);
 
         updateRTLOrder();
     }
@@ -427,8 +405,6 @@ public class NavigationBarView extends LinearLayout {
         }
         mCurrentView = mRotatedViews[rot];
         mCurrentView.setVisibility(View.VISIBLE);
-
-        getImeSwitchButton().setOnClickListener(mImeSwitcherClickListener);
 
         mDeadZone = (DeadZone) mCurrentView.findViewById(R.id.deadzone);
 
