@@ -97,15 +97,6 @@
                     android:src="@drawable/ic_sysbar_menu"
                     android:visibility="invisible"
                     systemui:keyCode="82" />
-
-                <com.android.systemui.statusbar.policy.KeyButtonView
-                    android:id="@+id/ime_switcher"
-                    android:layout_width="@dimen/navigation_extra_key_width"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/accessibility_ime_switch_button"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_ime_switcher_default"
-                    android:visibility="invisible" />
             </FrameLayout>
 
         </LinearLayout>
@@ -190,14 +181,6 @@
                 android:layout_weight="0"
                 android:layout_width="match_parent"
                 android:layout_height="40dp" >
-                <com.android.systemui.statusbar.policy.KeyButtonView
-                    android:id="@+id/ime_switcher"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:contentDescription="@string/accessibility_ime_switch_button"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_ime_switcher_default"
-                    android:visibility="invisible" />
 
                 <com.android.systemui.statusbar.policy.KeyButtonView
                     android:id="@+id/menu"
