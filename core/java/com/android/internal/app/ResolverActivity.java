@@ -286,7 +286,18 @@ public class ResolverActivity extends Activity implements AdapterView.OnItemClic
         if (!TextUtils.isEmpty(title)) {
             final TextView titleView = (TextView) findViewById(R.id.title);
             if (titleView != null) {
+                View.OnClickListener onClickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mOnceButton != null) {
+                            mOnceButton.performClick();
+                        }
+                    }
+                };
+
                 titleView.setText(title);
+                titleView.setBackgroundResource(R.drawable.item_background_material);
+                titleView.setOnClickListener(onClickListener);
             }
             setTitle(title);
         }
