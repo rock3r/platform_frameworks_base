@@ -3173,8 +3173,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mHeadsUpNotificationView.setVisibility(vis ? View.VISIBLE : View.GONE);
     }
 
-    public void onHeadsUpDismissed() {
-        mHeadsUpNotificationView.dismiss();
+    public void onHeadsUpDismissed(int direction) {
+        if (direction == HeadsUpNotificationView.DIRECTION_X) {
+            mHeadsUpNotificationView.dismiss();
+        } else if (direction == HeadsUpNotificationView.DIRECTION_Y) {
+            mHeadsUpNotificationView.release();
+            scheduleHeadsUpClose();
+        }
     }
 
     /**
