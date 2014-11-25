@@ -287,6 +287,26 @@ public class ResolverActivity extends Activity implements AdapterView.OnItemClic
             final TextView titleView = (TextView) findViewById(R.id.title);
             if (titleView != null) {
                 titleView.setText(title);
+
+                if (mAdapter.hasFilteredItem()) {
+                	// If we have a MRU app being shown in the title...
+	                View.OnClickListener onClickListener = new View.OnClickListener() {
+	                    @Override
+	                    public void onClick(View v) {
+	                        if (mOnceButton != null) {
+	                            mOnceButton.performClick();
+	                        }
+	                    }
+	                };
+	                titleView.setBackgroundResource(R.drawable.item_background_material);
+	                titleView.setOnClickListener(onClickListener);
+
+	                ImageView iconView = (ImageView) findViewById(R.id.icon);
+	                if (iconView != null) {
+		                iconView.setBackgroundResource(R.drawable.item_background_material);
+		                iconView.setOnClickListener(onClickListener);
+		            }
+	            }
             }
             setTitle(title);
         }
